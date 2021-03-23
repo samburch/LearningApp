@@ -24,7 +24,18 @@ struct ContentView: View {
                     ForEach(0..<model.currentModule!.content.lessons.count) {
                         
                         index in
-                        ContentViewRow(index: index)
+                        
+                        NavigationLink(
+                            // Pass the lesson index of the current module
+                            destination: ContentDetailView()
+                                .onAppear(perform: {
+                                    model.beginLesson(index)
+                                }),
+                            label: {
+                                // You have to pass index: index because that var was set at ContentViewRow
+                                ContentViewRow(index: index)
+                            })
+                            .accentColor(.black)
                         
                     }
                     

@@ -16,6 +16,14 @@ class ContentModel: ObservableObject {
     @Published var currentModule: Module?
     var currentModuleIndex = 0
     
+    // Current lesson
+    @Published var currentLesson: Lesson?
+    var currentLessonIndex = 0
+    
+    // Current lesson explanation from html data
+    @Published var lessonExplanation = NSAttributedString()
+    
+    // HTML and CSS data for lessons
     var styleData: Data?
     
     init() {
@@ -68,7 +76,7 @@ class ContentModel: ObservableObject {
         catch {
             
             // Log an error
-            print("Coulnt' parse Style data")
+            print("Couldn't parse Style data")
             
         }
         
@@ -89,6 +97,83 @@ class ContentModel: ObservableObject {
         
         // Set the current module
         currentModule = modules[currentModuleIndex]
+        
+    }
+    
+    // MARK: - Get current lesson in module
+    
+    func beginLesson(_ lessonIndex: Int) {
+        
+        // Check that the current lesson index is within the module range
+        if lessonIndex < currentModule!.content.lessons.count {
+            currentLessonIndex = lessonIndex
+        }
+        
+        else {
+            currentLessonIndex = 0
+            
+        }
+
+        // Set the current lesson index
+        currentLesson = currentModule!.content.lessons[currentLessonIndex]
+        
+        // Set the descrpition for the current lesson
+        lessonExplanation = addStyling(currentLesson!.explanation)
+        
+    }
+    
+    func nextLesson() {
+        
+        // Advance to the next lesson index
+        currentLessonIndex += 1
+        
+        // Check that it is within range
+        if currentLessonIndex < currentModule!.content.lessons.count {
+            
+            // Set the current lesson property
+            currentLesson = currentModule!.content.lessons[currentLessonIndex]
+            
+            // Set the lesson description for next lesson
+            lessonExplanation = addStyling(currentLesson!.explanation)
+        }
+        
+        else {
+            currentLessonIndex = 0
+            currentLesson = nil
+        }
+        
+    }
+    
+    func hasNextLesson() -> Bool {
+
+        // Return the result of whether there is anoter less on the module in order to show/hide the next lesson button in teh ContentDetailView
+        return (currentLessonIndex + 1 < currentModule!.content.lessons.count)
+        
+    }
+    
+    // MARK: - HTML Code styling
+    
+    private func addStyling(_ htmlString: String) -> NSAttributedString {
+        
+        var resultsString = NSAttributedString()
+        var data = Data()
+        
+        // Add styling data
+        if styleData != nil {
+            data.append(styleData!)
+        }
+        
+        // Append HTML to data object
+        data.append(Data(htmlString.utf8))
+        
+        // Convert to attributed string using optional binding
+        if let attributedString = try? NSAttributedString(data: data, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
+            
+            resultsString = attributedString
+        
+        }
+        
+        return resultsString
         
     }
     
