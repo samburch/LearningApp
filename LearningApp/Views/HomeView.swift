@@ -32,6 +32,9 @@ struct HomeView: View {
                                     .onAppear(perform: {
                                         model.beginModule(module.id)
                                     }),
+                                // Use the module ID from JSON to tag the selected module
+                                tag: module.id,
+                                selection: $model.currentContentSelected,
                                 label: {
 
                                     // Learning card

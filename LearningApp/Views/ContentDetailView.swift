@@ -39,11 +39,8 @@ struct ContentDetailView: View {
                     
                     ZStack {
                         
-                        Rectangle()
+                        RectangleCard(color: Color.green)
                             .frame(height: 48)
-                            .foregroundColor(Color.green)
-                            .shadow(radius: 5)
-                            .cornerRadius(10)
                         
                         // Set the next of the button to the next lesson
                         Text("Next Lesson: \(model.currentModule!.content.lessons[model.currentLessonIndex + 1].title)")
@@ -53,6 +50,31 @@ struct ContentDetailView: View {
                     }
                 })
                                     
+            }
+            
+            // Set the course to complete and return user to the HomeView
+            else {
+                
+                Button(action: {
+                    
+                    // Return the user to HomeView by setting the currentContentSelected to nil
+                    model.currentContentSelected = nil
+                    
+                }, label: {
+                    
+                    ZStack {
+                        
+                        RectangleCard(color: Color.green)
+                            .frame(height: 48)
+                        
+                        // Course complete
+                        Text("Complete course")
+                            .foregroundColor(Color.white)
+                            .bold()
+                        
+                    }
+                })
+                
             }
             
         }
