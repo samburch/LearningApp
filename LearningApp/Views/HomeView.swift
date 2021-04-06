@@ -34,16 +34,25 @@ struct HomeView: View {
                                     }),
                                 // Use the module ID from JSON to tag the selected module
                                 tag: module.id,
-                                selection: $model.currentContentSelected,
-                                label: {
-
+                                selection: $model.currentContentSelected) {
+                                    // Trailing closure for lavbel instead of label: property
                                     // Learning card
                                     HomeViewRow(image: "\(module.content.image)", title: "Learn \(module.category)", description: "\(module.content.description)", count: "\(module.content.lessons.count) Lessons", time: "\(module.content.time)")
                                     
-                                })
+                                }
                             
-                            // Test card
-                            HomeViewRow(image: "\(module.test.image)", title: "\(module.category) Test", description: "\(module.test.description)", count: "\(module.test.questions.count) Questions", time: "\(module.test.time)")
+                            NavigationLink(
+                                destination: TestView()
+                                    // Load the current test in the next view
+                                    .onAppear(perform: {
+                                        model.beginTest(module.id)
+                                    }),
+                                tag: module.id,
+                                selection: $model.currentTestSelected) {
+                                    // Test card
+                                    HomeViewRow(image: "\(module.test.image)", title: "\(module.category) Test", description: "\(module.test.description)", count: "\(module.test.questions.count) Questions", time: "\(module.test.time)")
+                                    
+                                }
                             
                         }
                         .accentColor(.black)

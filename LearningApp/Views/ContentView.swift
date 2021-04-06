@@ -42,7 +42,7 @@ struct ContentView: View {
                 }
                 
             }
-            .navigationTitle("Learn \(model.currentModule?.category ?? "")")
+            .navigationBarTitle("Learn \(model.currentModule?.category ?? "")")
             .padding()
             
         }

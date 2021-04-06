@@ -21,10 +21,15 @@ class ContentModel: ObservableObject {
     var currentLessonIndex = 0
     
     // Current lesson explanation from html data
-    @Published var lessonExplanation = NSAttributedString()
+    @Published var codeText = NSAttributedString()
     
-    // Currentl selected content
+    // Current question
+    @Published var currentQuestion: Question?
+    var currentQuestionIndex = 0
+    
+    // Current selected content
     @Published var currentContentSelected: Int?
+    @Published var currentTestSelected: Int?
     
     // HTML and CSS data for lessons
     var styleData: Data?
@@ -39,7 +44,7 @@ class ContentModel: ObservableObject {
     
     func getLocalData() {
         
-        // get a URL to the JSON file
+        // get a URL to the JSON file and create the modules
         let jsonUrl = Bundle.main.url(forResource: "data", withExtension: "json")
         
         do {
@@ -121,7 +126,7 @@ class ContentModel: ObservableObject {
         currentLesson = currentModule!.content.lessons[currentLessonIndex]
         
         // Set the descrpition for the current lesson
-        lessonExplanation = addStyling(currentLesson!.explanation)
+        codeText = addStyling(currentLesson!.explanation)
         
     }
     
@@ -137,7 +142,7 @@ class ContentModel: ObservableObject {
             currentLesson = currentModule!.content.lessons[currentLessonIndex]
             
             // Set the lesson description for next lesson
-            lessonExplanation = addStyling(currentLesson!.explanation)
+            codeText = addStyling(currentLesson!.explanation)
         }
         
         else {
@@ -151,6 +156,29 @@ class ContentModel: ObservableObject {
 
         // Return the result of whether there is anoter less on the module in order to show/hide the next lesson button in teh ContentDetailView
         return (currentLessonIndex + 1 < currentModule!.content.lessons.count)
+        
+    }
+    
+    // MARK: - Begin Test
+    
+    func beginTest(_ moduleId:Int) {
+        
+        // Set the current module
+        beginModule(moduleId)
+        
+        // Set the current question
+        currentQuestionIndex = 0
+        
+        // If there are questions, set the current question to the first one in the series
+        if currentModule?.test.questions.count ?? 0 > 0 {
+            
+            // Set the current question
+            currentQuestion = currentModule!.test.questions[currentQuestionIndex]
+            
+            // Also set the current question text
+            codeText = addStyling(currentQuestion!.content)
+        }
+        
         
     }
     
