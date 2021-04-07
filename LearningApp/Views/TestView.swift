@@ -34,9 +34,8 @@ struct TestView: View {
                     
                     VStack {
                         
-                        // Get all the answers for the current question
-                        ForEach(0..<model.currentQuestion!.answers.count) { index in
-                            
+                        // Get all the answers for the current question (set their ID to themselves)
+                        ForEach(0..<model.currentQuestion!.answers.count, id: \.self) { index in
                             
                             Button(action: {
                                 // TODO
@@ -94,13 +93,12 @@ struct TestView: View {
                                             
                                         }
                                         
-                                        
                                     }
                                     
-                                    
                                     Text(model.currentQuestion!.answers[index])
-                                    
+
                                 }
+                                
                                 
                             })
                             .disabled(submitted)
@@ -116,15 +114,31 @@ struct TestView: View {
                 // Button to submit answer
                 Button(action: {
                     
-                    // Once user confirms answer, don't allow them to change it
-                    submitted = true
-                    
-                    // Check if the given answer was correct and increment score by one
-                    if selectedAnswerIndex == model.currentQuestion!.correctIndex {
+                    // Check if answer has already been submitted
+                    if submitted == true {
+                        // Move to next question and reset properties
+                        submitted = false
+                        selectedAnswerIndex = nil
                         
-                        numCorrect += 1
+                        // Move to the next question
+                        model.nextQuestion()
                         
                     }
+                    // Question submited by user
+                    else {
+                        
+                        // Once user confirms answer, don't allow them to change it
+                        submitted = true
+                        
+                        // Check if the given answer was correct and increment score by one
+                        if selectedAnswerIndex == model.currentQuestion!.correctIndex {
+                            
+                            numCorrect += 1
+
+                        }
+                        
+                    }
+
                     
                 }
                 , label: {
@@ -134,7 +148,7 @@ struct TestView: View {
                         RectangleCard(color: .green)
                             .frame(height: 48)
                         
-                        Text("Submit")
+                        Text(buttonText)
                             .bold()
                             .foregroundColor(Color.white)
                         
@@ -155,6 +169,35 @@ struct TestView: View {
             
         }
         
+    }
+    
+    // Button text computation
+    var buttonText: String {
+        
+        // Check if Answer has been submitted
+        if submitted == true {
+            
+            // Check if this is the last question in the test and set button text accordingly
+            if model.currentQuestionIndex + 1 == model.currentModule!.test.questions.count {
+                
+                return "Finish"
+                
+            }
+            // There is another question
+            else {
+                
+                return "Next"
+            }
+            
+        }
+        // User needs to submit their answer
+        else {
+            
+            return "Submit"
+            
+        }
+
+
     }
 }
 
