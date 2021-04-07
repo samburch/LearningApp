@@ -19,6 +19,7 @@
 		79D4379325F8E22A00A59A68 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D4379225F8E22A00A59A68 /* HomeView.swift */; };
 		79D4379525F8E22B00A59A68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79D4379425F8E22B00A59A68 /* Assets.xcassets */; };
 		79D4379825F8E22B00A59A68 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79D4379725F8E22B00A59A68 /* Preview Assets.xcassets */; };
+		79E15BD9261DF521008AD556 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E15BD8261DF521008AD556 /* ResultsView.swift */; };
 		79F7DA9126091EBB00E7C8DC /* ContentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F7DA9026091EBB00E7C8DC /* ContentDetailView.swift */; };
 		79F7DA952609303E00E7C8DC /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79F7DA942609303E00E7C8DC /* AVKit.framework */; };
 		79F7DA98260934DD00E7C8DC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F7DA97260934DD00E7C8DC /* Constants.swift */; };
@@ -41,6 +42,7 @@
 		79D4379425F8E22B00A59A68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		79D4379725F8E22B00A59A68 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		79D4379925F8E22B00A59A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		79E15BD8261DF521008AD556 /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		79F7DA9026091EBB00E7C8DC /* ContentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentDetailView.swift; sourceTree = "<group>"; };
 		79F7DA942609303E00E7C8DC /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		79F7DA97260934DD00E7C8DC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				79FD6D32261CAF7000856EB9 /* TestView.swift */,
 				796FE34C2609F6A0001A519A /* CodeTextView.swift */,
 				79FD6D2F261C851500856EB9 /* RectangleCard.swift */,
+				79E15BD8261DF521008AD556 /* ResultsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 			files = (
 				79FD6D33261CAF7000856EB9 /* TestView.swift in Sources */,
 				79D4379325F8E22A00A59A68 /* HomeView.swift in Sources */,
+				79E15BD9261DF521008AD556 /* ResultsView.swift in Sources */,
 				79A785E025FEC4E200C878BA /* HomeViewRow.swift in Sources */,
 				79981E7726026A9200884008 /* ContentView.swift in Sources */,
 				79F7DA9126091EBB00E7C8DC /* ContentDetailView.swift in Sources */,

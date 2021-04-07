@@ -165,7 +165,7 @@ struct TestView: View {
         
         else {
             
-            Text("No question currently selected")
+            ResultsView(testScore: numCorrect)
             
         }
         
